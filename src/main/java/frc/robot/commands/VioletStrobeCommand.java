@@ -23,5 +23,10 @@ public class VioletStrobeCommand extends Command {
     public void end(boolean interrupted){
         candle.defaultColor();
     }
+    @Override
+    public boolean isFinished(){
+        return true;
+    }
+
     }
 

@@ -30,6 +30,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class CANdleSubsystem extends SubsystemBase {
     /* color can be constructed from RGBW, a WPILib Color/Color8Bit, HSV, or hex */
     private static final RGBWColor kGreen = new RGBWColor(0, 217, 0, 0);
+    private static final RGBWColor kGreenStrip = new RGBWColor(0, 217, 0);
     private static final RGBWColor kBrown = new RGBWColor(110, 85, 30, 1);
     private static final RGBWColor kWhite = new RGBWColor(Color.kWhite).scaleBrightness(0.5);
     private static final RGBWColor kViolet = RGBWColor.fromHSV(Degrees.of(270), 0.9, 0.8);
@@ -75,7 +76,7 @@ public class CANdleSubsystem extends SubsystemBase {
         /* Configure CANdle */
         var cfg = new CANdleConfiguration();
         /* set the LED strip type and brightness */
-        cfg.LED.StripType = StripTypeValue.BRGW;
+        cfg.LED.StripType = StripTypeValue.RGB;
         cfg.LED.BrightnessScalar = 0.5;
         /* disable status LED when being controlled */
         cfg.CANdleFeatures.StatusLedWhenActive = StatusLedWhenActiveValue.Disabled;
@@ -87,8 +88,7 @@ public class CANdleSubsystem extends SubsystemBase {
             m_candle.setControl(new EmptyAnimation(i));
         }
         /* set the onboard LEDs to a solid color */
-        m_candle.setControl(new SolidColor(0, 3).withColor(kWhite));
-        m_candle.setControl(new SolidColor(4, 7).withColor(kWhite));
+        m_candle.setControl(new SolidColor(0, 399).withColor(kWhite));
 
         /* add animations to chooser for slot 0 */
         m_anim0Chooser.setDefaultOption("Color Flow", AnimationType.ColorFlow);
@@ -96,6 +96,7 @@ public class CANdleSubsystem extends SubsystemBase {
         m_anim0Chooser.addOption("Twinkle", AnimationType.Twinkle);
         m_anim0Chooser.addOption("Twinkle Off", AnimationType.TwinkleOff);
         m_anim0Chooser.addOption("Fire", AnimationType.Fire);
+        m_anim0Chooser.addOption("Strobe", AnimationType.Strobe);
 
         /* add animations to chooser for slot 1 */
         m_anim1Chooser.setDefaultOption("Larson", AnimationType.Larson);
@@ -110,18 +111,20 @@ public class CANdleSubsystem extends SubsystemBase {
     }
 
     public void defaultColor(){
-        m_candle.setControl(new SolidColor(0, 7).withColor(kWhite));
+        m_candle.setControl(new SolidColor(0, 399).withColor(kWhite));
     }
 
     public void redIt(){
 
-        m_candle.setControl(new SolidColor(0, 7).withColor(kRed));
+        m_candle.setControl(new SolidColor(0, 7).withColor(kGreen));
+        m_candle.setControl(new SolidColor(8, 399).withColor(kGreenStrip));
 
     }
 
     public void violetStrobeIt(){
 
-        m_candle.setControl(new StrobeAnimation(0, 7).withSlot(1).withColor(kViolet));
+        m_candle.setControl(new StrobeAnimation(0, 399).withSlot(0).withColor(kViolet));
+        m_candle.setControl(new StrobeAnimation(0, 399).withSlot(1).withColor(kViolet));
 
     }
     public void periodic() {
@@ -147,6 +150,11 @@ public class CANdleSubsystem extends SubsystemBase {
                     m_candle.setControl(
                         new TwinkleAnimation(kSlot0StartIdx, kSlot0EndIdx).withSlot(0)
                             .withColor(kViolet)
+                    );
+                    break;
+                case Strobe:
+                    m_candle.setControl(
+                        new StrobeAnimation(kSlot0StartIdx, kSlot0EndIdx).withSlot(0).withColor(kRed)
                     );
                     break;
                 case TwinkleOff:
