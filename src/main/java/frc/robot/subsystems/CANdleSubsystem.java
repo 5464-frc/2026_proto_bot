@@ -41,11 +41,11 @@ public class CANdleSubsystem extends SubsystemBase {
      * 0-7 are onboard, 8-399 are an external strip.
      * CANdle supports 8 animation slots (0-7).
      */
-    private static final int kSlot0StartIdx = 8;
-    private static final int kSlot0EndIdx = 37;
+    private static final int kSlotStartIdx = 8;
+    // private static final int kSlot0EndIdx = 37;
 
-    private static final int kSlot1StartIdx = 38;
-    private static final int kSlot1EndIdx = 67;
+    // private static final int kSlot1StartIdx = 38;
+    private static final int kSlotEndIdx = 77;
 
     private final CANdle m_candle = new CANdle(52, CANBus.roboRIO());
 
@@ -119,94 +119,99 @@ public class CANdleSubsystem extends SubsystemBase {
         m_candle.setControl(new SolidColor(0, 399).withColor(kWhite));
     }
 
-    public void redIt(){
+    public void redLarsonIt(){
 
-        m_candle.setControl(new SolidColor(0, 7).withColor(kGreen));
-        m_candle.setControl(new SolidColor(8, 399).withColor(kGreenStrip));
+        m_candle.setControl(new LarsonAnimation(0, 38).withColor(kRed));
 
     }
 
-    public void violetStrobeIt(){
+    public void clearAnimation(){
+        /* clear all previous animations */
+        for (int i = 0; i < 400; ++i) {
+            m_candle.setControl(new EmptyAnimation(i));
+        }
+    }
 
-        m_candle.setControl(new StrobeAnimation(0, 399).withSlot(0).withColor(kViolet));
-        m_candle.setControl(new StrobeAnimation(0, 399).withSlot(1).withColor(kViolet));
+    public void violetLarsonIt(){
+        m_candle.setControl(new LarsonAnimation(39, 77).withColor(kViolet));
+        // m_candle.setControl(new StrobeAnimation(0, 399).withSlot(1).withColor(kViolet));
 
     }
     public void periodic() {
         /* if the selection for slot 0 changes, change animations */
-        final var animSelection = m_animChooser.getSelected();
-        if (m_animState != animSelection) {
-            m_animState = animSelection;
+        // final var animSelection = m_animChooser.getSelected();
+        // if (m_animState != animSelection) {
+        //     m_animState = animSelection;
 
-            switch (m_animState) {
-                default:
-                case ColorFlow:
-                    m_candle.setControl(
-                        new ColorFlowAnimation(kSlot0StartIdx, kSlot1EndIdx).withSlot(0)
-                            .withColor(kViolet)
-                    );
-                    break;
-                case Rainbow:
-                    m_candle.setControl(
-                        new RainbowAnimation(kSlot0StartIdx, kSlot1EndIdx).withSlot(0)
-                    );
-                    break;
-                case Twinkle:
-                    m_candle.setControl(
-                        new TwinkleAnimation(kSlot0StartIdx, kSlot1EndIdx).withSlot(0)
-                            .withColor(kViolet)
-                    );
-                    break;
-                case Strobe:
-                    m_candle.setControl(
-                        new StrobeAnimation(kSlot0StartIdx, kSlot1EndIdx).withSlot(0).withColor(kRed)
-                    );
-                    break;
-                case TwinkleOff:
-                    m_candle.setControl(
-                        new TwinkleOffAnimation(kSlot0StartIdx, kSlot1EndIdx).withSlot(0)
-                            .withColor(kViolet)
-                    );
-                    break;
-                case Fire:
-                    m_candle.setControl(
-                        new FireAnimation(kSlot0StartIdx, kSlot1EndIdx).withSlot(0)
-                    );
-                    break;
-                       case Larson:
-                    m_candle.setControl(
-                        new LarsonAnimation(kSlot0StartIdx, kSlot1EndIdx).withSlot(1)
-                            .withColor(kRed)
-                    );
-                    break;
-                case RgbFade:
-                    m_candle.setControl(
-                        new RgbFadeAnimation(kSlot0StartIdx, kSlot1EndIdx).withSlot(1)
-                    );
-                    break;
-                case SingleFade:
-                    m_candle.setControl(
-                        new SingleFadeAnimation(kSlot0StartIdx, kSlot1EndIdx).withSlot(1)
-                            .withColor(kRed)
-                    );
-                    break;
+        //     switch (m_animState) {
+        //         default:
+        //         case ColorFlow:
+        //             m_candle.setControl(
+        //                 new ColorFlowAnimation(kSlotStartIdx, kSlotEndIdx).withSlot(0)
+        //                     .withColor(kViolet)
+        //             );
+        //             break;
+        //         case Rainbow:
+        //             m_candle.setControl(
+        //                 new RainbowAnimation(kSlotStartIdx, kSlotEndIdx).withSlot(0)
+        //             );
+        //             break;
+        //         case Twinkle:
+        //             m_candle.setControl(
+        //                 new TwinkleAnimation(kSlotStartIdx, kSlotEndIdx).withSlot(0)
+        //                     .withColor(kViolet)
+        //             );
+        //             break;
+        //         case Strobe:
+        //             m_candle.setControl(
+        //                 new StrobeAnimation(kSlotStartIdx, kSlotEndIdx).withSlot(0).withColor(kRed)
+        //             );
+        //             break;
+        //         case TwinkleOff:
+        //             m_candle.setControl(
+        //                 new TwinkleOffAnimation(kSlotStartIdx, kSlotEndIdx).withSlot(0)
+        //                     .withColor(kViolet)
+        //             );
+        //             break;
+        //         case Fire:
+        //             m_candle.setControl(
+        //                 new FireAnimation(kSlotStartIdx, kSlotEndIdx).withSlot(0)
+        //             );
+        //             break;
+        //                case Larson:
+        //             m_candle.setControl(
+        //                 new LarsonAnimation(kSlotStartIdx, kSlotEndIdx).withSlot(0)
+        //                     .withColor(kRed)
+        //             );
+        //             break;
+        //         case RgbFade:
+        //             m_candle.setControl(
+        //                 new RgbFadeAnimation(kSlotStartIdx, kSlotEndIdx).withSlot(0)
+        //             );
+        //             break;
+        //         case SingleFade:
+        //             m_candle.setControl(
+        //                 new SingleFadeAnimation(kSlotStartIdx, kSlotEndIdx).withSlot(0)
+        //                     .withColor(kRed)
+        //             );
+        //             break;
                 // case Strobe:
                 //     m_candle.setControl(
-                //         new StrobeAnimation(kSlot0StartIdx, kSlot1EndIdx).withSlot(1)
+                //         new StrobeAnimation(kSlotStartIdx, kSlotEndIdx).withSlot(1)
                 //             .withColor(kRed)
                 //     );
                 //     break;
                 // case Fire:
                 //     /* direction can be reversed by either the Direction parameter or switching start and end */
                 //     m_candle.setControl(
-                //         new FireAnimation(kSlot0StartIdx, kSlot1EndIdx).withSlot(1)
+                //         new FireAnimation(kSlotStartIdx, kSlotEndIdx).withSlot(1)
                 //             .withDirection(AnimationDirectionValue.Backward)
                 //             .withCooling(0.4)
                 //             .withSparking(0.5)
                 //     );
                 //     break;
-            }
-        }
+            // }
+        // }
 
         /* if the selection for slot 1 changes, change animations */
         // final var anim1Selection = m_anim1Chooser.getSelected();
@@ -217,31 +222,31 @@ public class CANdleSubsystem extends SubsystemBase {
         //         default:
         //         case Larson:
         //             m_candle.setControl(
-        //                 new LarsonAnimation(kSlot1StartIdx, kSlot1EndIdx).withSlot(1)
+        //                 new LarsonAnimation(kSlot1StartIdx, kSlotEndIdx).withSlot(1)
         //                     .withColor(kRed)
         //             );
         //             break;
         //         case RgbFade:
         //             m_candle.setControl(
-        //                 new RgbFadeAnimation(kSlot1StartIdx, kSlot1EndIdx).withSlot(1)
+        //                 new RgbFadeAnimation(kSlot1StartIdx, kSlotEndIdx).withSlot(1)
         //             );
         //             break;
         //         case SingleFade:
         //             m_candle.setControl(
-        //                 new SingleFadeAnimation(kSlot1StartIdx, kSlot1EndIdx).withSlot(1)
+        //                 new SingleFadeAnimation(kSlot1StartIdx, kSlotEndIdx).withSlot(1)
         //                     .withColor(kRed)
         //             );
         //             break;
         //         case Strobe:
         //             m_candle.setControl(
-        //                 new StrobeAnimation(kSlot1StartIdx, kSlot1EndIdx).withSlot(1)
+        //                 new StrobeAnimation(kSlot1StartIdx, kSlotEndIdx).withSlot(1)
         //                     .withColor(kRed)
         //             );
         //             break;
         //         case Fire:
         //             /* direction can be reversed by either the Direction parameter or switching start and end */
         //             m_candle.setControl(
-        //                 new FireAnimation(kSlot1StartIdx, kSlot1EndIdx).withSlot(1)
+        //                 new FireAnimation(kSlot1StartIdx, kSlotEndIdx).withSlot(1)
         //                     .withDirection(AnimationDirectionValue.Backward)
         //                     .withCooling(0.4)
         //                     .withSparking(0.5)
