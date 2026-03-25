@@ -173,7 +173,7 @@ public class CANdleSubsystem extends SubsystemBase {
                         new FireAnimation(kSlot0StartIdx, kSlot1EndIdx).withSlot(0)
                     );
                     break;
-                       case Larson:
+                case Larson:
                     m_candle.setControl(
                         new LarsonAnimation(kSlot0StartIdx, kSlot1EndIdx).withSlot(1)
                             .withColor(kRed)
