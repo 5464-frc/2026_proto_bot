@@ -32,7 +32,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Universals;
-import frc.robot.subsystems.VisionSubsystem.Cameras;
+// import frc.robot.subsystems.VisionSubsystem.Cameras;
 import swervelib.SwerveController;
 import swervelib.SwerveDrive;
 import swervelib.math.SwerveMath;
@@ -70,7 +70,7 @@ public class SwerveSubsystem extends SubsystemBase{
       if (visionDriveTest)
       {
         swerveDrive.updateOdometry();
-        vision.updatePoseEstimation(swerveDrive);
+        // vision.updatePoseEstimation(swerveDrive);
       }
     }
 
@@ -98,7 +98,7 @@ public class SwerveSubsystem extends SubsystemBase{
       /**
    * PhotonVision class to keep an accurate odometry.
    */
-  private       VisionSubsystem      vision;
+  // private       VisionSubsystem      vision;
 
   /**
    * Enable vision odometry updates while driving.
@@ -117,24 +117,24 @@ public class SwerveSubsystem extends SubsystemBase{
    *
    * @return A {@link Command} which will run the alignment.
    */
-  public Command aimAtTarget(Cameras camera)
-  {
+  // public Command aimAtTarget(Cameras camera)
+  // // {
 
-    return run(() -> {
-      Optional<PhotonPipelineResult> resultO = camera.getBestResult();
-      if (resultO.isPresent())
-      {
-        var result = resultO.get();
-        if (result.hasTargets())
-        {
-          drive(getTargetSpeeds(0,
-                                0,
-                                Rotation2d.fromDegrees(result.getBestTarget()
-                                                             .getYaw()))); // Not sure if this will work, more math may be required.
-        }
-      }
-    });
-  }
+  //   return run(() -> {
+  //     Optional<PhotonPipelineResult> resultO = camera.getBestResult();
+  //     if (resultO.isPresent())
+  //     {
+  //       var result = resultO.get();
+  //       if (result.hasTargets())
+  //       {
+  //         drive(getTargetSpeeds(0,
+  //                               0,
+  //                               Rotation2d.fromDegrees(result.getBestTarget()
+  //                                                            .getYaw()))); // Not sure if this will work, more math may be required.
+  //       }
+  //     }
+  //   });
+  // }
 
   /**
    * Get the chassis speeds based on controller input of 1 joystick and one angle. Control the robot at an offset of
