@@ -50,7 +50,7 @@ public class Robot extends TimedRobot
     m_robotContainer = new RobotContainer();
     m_SwerveSubsystem = new SwerveSubsystem();
     m_CaNdleSubsystem = new CANdleSubsystem();
-    SmartDashboard.putData("Auto Mode", m_robotContainer.autoChooser);
+    // SmartDashboard.putData("Auto Mode", m_robotContainer.autoChooser);
 
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
     // immediately when disabled, but then also let it be pushed more 
@@ -77,6 +77,7 @@ public class Robot extends TimedRobot
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    m_SwerveSubsystem.periodic();
     m_robotContainer.periodic();
   }
 

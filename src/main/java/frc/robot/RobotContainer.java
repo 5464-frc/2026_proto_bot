@@ -22,14 +22,14 @@ public class RobotContainer {
   
   private final CommandJoystick driveController = new CommandJoystick(0);
   
-  public final SendableChooser<Command> autoChooser;
+  private final SendableChooser<Command> autoChooser;
 
   public RobotContainer() {
 
     autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
     SmartDashboard.putData("Auto Mode", autoChooser); 
     
-    FollowPathCommand.warmupCommand();
+    // FollowPathCommand.warmupCommand();
     
     configureBindings();
 
