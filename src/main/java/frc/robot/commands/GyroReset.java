@@ -1,27 +1,37 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class GyroReset extends Command{
-    // private final Runnable reset;
+    private final Runnable reset;
     SwerveSubsystem swerve;
 
-    public GyroReset(SwerveSubsystem swerveSubsystem) {
-        System.out.println("A side of fries");
-        swerve = swerveSubsystem;
-    
+    public GyroReset(SwerveSubsystem swervesub) {
+        swerve = swervesub;
+        reset = () -> {
+            // drivetrain.seedFieldCentric();
+            swerve.zeroGyro();
+        };
     }
 
     @Override
-    public void initialize() {
-        System.out.println("Two scoop custard with butterfinger");
-        swerve.zeroGyro();
+    public void initialize(){
+        // drivetrain.seedFieldCentric();
+        SmartDashboard.putBoolean("zeroGyro", true);
+        System.out.println("zeroed");
+        reset.run();
     }
 
     @Override
     public void execute() {
         
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        SmartDashboard.putBoolean("zeroGyro", false);
     }
 
     @Override

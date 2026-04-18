@@ -20,6 +20,7 @@ import com.pathplanner.lib.path.PathPlannerPath;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
@@ -77,20 +78,21 @@ public class SwerveSubsystem extends SubsystemBase{
     public void drive(double x, double y, double z){
       x = -x;
       y = -y;
-      if(Universals.slowMode){
-        swerveDrive.drive(new Translation2d(x * 1,y * 1),z * 2.5, true, false);
-      }      
-      else if(Universals.zoom){
-        swerveDrive.drive(new Translation2d(x * 3,y * 3),z * 3.5, true, false);
-      } else {
-        swerveDrive.drive(new Translation2d(x * 1,y * 1),z * 3, true, false);
-      }
+      // if(Universals.slowMode){
+        // swerveDrive.drive(new Translation2d(x * 1,y * 1), z * 2.5, true, false);
+      // }      
+      // else if(Universals.zoom){
+        // swerveDrive.drive(new Translation2d(x * 3,y * 3), z * 3.5, true, false);
+      // } else {
+        swerveDrive.drive(new Translation2d(x * Universals.driveSpeedMultiplier, y * Universals.driveSpeedMultiplier), z * 3, true, false);
+      // }
         
     }
 
     public void zeroGyro(){
+      Rotation3d k180 = new Rotation3d(Rotation2d.k180deg);
         System.out.println("BREADED SHRIMP FROM CULVERS");
-        swerveDrive.zeroGyro();
+        swerveDrive.setGyro(k180);
     }
 
     // Everything down here was copied from the YAGSL example, in an attempt to use their Pathplanner integration

@@ -2,11 +2,16 @@ package frc.robot;
 
 public final class Universals {
 
-    public static boolean manualMode = false;
-    public static boolean zoom = false;
-    public static boolean slowMode = false;
+    public static boolean zeroGyro = false;
+    public static boolean brakeMode = false;
     public static double wait = 0;
-    public static boolean brakemode = false;
+    public static boolean zoomMode = false;
+    public static boolean manualMode = false;
+
+    public static double driveSpeedMultiplier = 1; // at max = 1
+    public static double shootSpeedMultiplier = 1; // at max = 1
+    
+    public static boolean slowMode = false;
     
 
     private Universals(){

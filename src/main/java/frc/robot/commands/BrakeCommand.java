@@ -21,12 +21,12 @@ public class BrakeCommand extends Command{
     @Override
     public void execute(){
         swerve.lockpose();
-        Universals.brakemode = true;
+        Universals.brakeMode = true;
     }
 
     @Override
     public void end(boolean interrupted){
-        Universals.brakemode = false;
+        Universals.brakeMode = false;
     }
 
     @Override

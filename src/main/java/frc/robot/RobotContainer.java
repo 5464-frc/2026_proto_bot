@@ -14,6 +14,7 @@ import frc.robot.commands.BrakeCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.SlowModeCommand;
+import frc.robot.commands.ZoomModeCommand;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class RobotContainer {
@@ -27,7 +28,7 @@ public class RobotContainer {
   public RobotContainer() {
 
     autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
-    SmartDashboard.putData("Auto Mode", autoChooser); 
+    SmartDashboard.putData("Auto Mode", autoChooser);
     
     // FollowPathCommand.warmupCommand();
     
@@ -45,6 +46,7 @@ public class RobotContainer {
 
   public void periodic(){
     swerve.periodic();
+    SmartDashboard.putNumber("driveSpeedMultiplier", Universals.driveSpeedMultiplier);
   }
 
   public void configureBindings(){
@@ -58,6 +60,7 @@ public class RobotContainer {
       driveController.button(1).whileTrue(new BrakeCommand(swerve));
       driveController.button(8).onTrue(new GyroReset(swerve));
       driveController.button(7).whileTrue(new SlowModeCommand());
+      driveController.button(3).whileTrue(new ZoomModeCommand());
   }
 
   public Command getAutonomousCommand() {

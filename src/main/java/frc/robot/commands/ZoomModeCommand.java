@@ -4,22 +4,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Universals;
 
-public class SlowModeCommand extends Command{
-    
+public class ZoomModeCommand extends Command{
+
     @Override
     public void execute(){
-        Universals.driveSpeedMultiplier = 0.5;
-        SmartDashboard.putBoolean("SlowMode", true);
+        Universals.driveSpeedMultiplier = 2;
+        SmartDashboard.putBoolean("ZoomMode", true);
     }
 
     @Override
     public void end(boolean interrupted){
         Universals.driveSpeedMultiplier = 1;
-        SmartDashboard.putBoolean("SlowMode", false);
+        SmartDashboard.putBoolean("ZoomMode", false);
     }
 
     @Override
     public boolean runsWhenDisabled(){
         return true;
     }
+
 }
